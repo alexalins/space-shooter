@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmr2351ehcvdh"]
+
+[ext_resource type="Script" uid="uid://ca65kegqwq2l1" path="res://script/game.gd" id="1_iywne"]
+[ext_resource type="Script" uid="uid://dcf4e5tljhcps" path="res://script/spawn_container.gd" id="1_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://bmslyhn8a5e01" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://tmjgn0bsfmpv" path="res://assets/backgrounds/darkPurple.png" id="3_p57ef"]
+[ext_resource type="PackedScene" uid="uid://df07gnu3kts3p" path="res://scenes/spawn_container.tscn" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://cnd23ak42bpyx" path="res://scenes/ui.tscn" id="5_iywne"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_iywne")
+
+[node name="Backgroud" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -23.0
+offset_right = 1179.0
+offset_bottom = 681.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_p57ef")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="SpawnContainer" parent="." instance=ExtResource("4_iywne")]
+script = ExtResource("1_lbhrr")
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(163, 335)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="HUD" instance=ExtResource("5_iywne")]
+
+[connection signal="spawn_enemy" from="SpawnContainer" to="." method="_on_spawn_container_spawn_enemy"]
+[connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
